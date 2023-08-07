@@ -1,7 +1,4 @@
-import models.Bot;
-import models.BotDifficultyLevel;
-import models.Player;
-import models.PlayerType;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +41,24 @@ public class Main {
             players.add(new Player(name,symbol.charAt(0), PlayerType.HUMAN));
         }
 
+        Game game = new Game.Builder().setDimensions(dimensions).setPlayers(players).build();
 
+        while (game.getGameStatus().equals(GameStatus.IN_PROGRESS)) {
+            System.out.println("This is the current Board: ");
+            game.getBoard().displayBoard();
 
+            System.out.println("Do you want to undo ? y/n");
+            String input = scanner.next();
 
+            if (input.equals("y")) {
+//                gameController.undo(game);
+            } else {
+                game.makeNextMove();
+            }
 
+            if(game.getGameStatus().equals(GameStatus.WON)){
+
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@ package models;
 
 import exception.InvalidDimension;
 import exception.InvalidNumberOfPlayers;
+import stratergy.OrderOneWinningStratergy;
+import stratergy.WinningStratergy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,16 @@ public class Game {
     private GameStatus gameStatus;
     private int nextPlayerIndex;
     private Player winner;
+
+    public WinningStratergy getWinningStratergy() {
+        return winningStratergy;
+    }
+
+    public void setWinningStratergy(WinningStratergy winningStratergy) {
+        this.winningStratergy = winningStratergy;
+    }
+
+    private WinningStratergy winningStratergy;
 
     private void Board(){};
 
@@ -72,23 +84,25 @@ public class Game {
             return dimensions;
         }
 
-        public void setDimensions(int dimensions) {
+        public Builder setDimensions(int dimensions) {
             this.dimensions = dimensions;
+            return this;
         }
 
         public List<Player> getPlayers() {
             return players;
         }
 
-        public void setPlayers(List<Player> players) {
+        public Builder setPlayers(List<Player> players) {
             this.players = players;
+            return this;
         }
 
         private void isValid() throws InvalidDimension, InvalidNumberOfPlayers {
             if(this.players.size() < this.dimensions - 1){
                 throw new InvalidNumberOfPlayers("Number of Players should be n-1");
             } else if(this.dimensions < 3){
-                throw  new InvalidDimension("Invalid dimesntion specified");
+                throw new InvalidDimension("Invalid dimesntion specified");
             }
         }
 
@@ -96,7 +110,10 @@ public class Game {
 
             try{
                 isValid();
-            } catch (InvalidDimension | InvalidNumberOfPlayers e){
+            } catch (InvalidNumberOfPlayers e){
+                System.out.println(e.getMessage());
+                return null;
+            } catch (InvalidDimension e){
                 System.out.println(e.getMessage());
                 return null;
             }
@@ -106,6 +123,7 @@ public class Game {
             game.setGameStatus(GameStatus.IN_PROGRESS);
             game.setNextPlayerIndex(0);
             game.setMoves(new ArrayList<>());
+            game.setWinningStratergy(new OrderOneWinningStratergy(dimensions));
 
             return game;
 
@@ -126,6 +144,11 @@ public class Game {
             moves.add(move);
 
             //check if he is winner
+            if(winningStratergy.checkWinner(board, move)){
+                gameStatus = GameStatus.WON;
+                winner = playerToMove;
+            }
+
 
             nextPlayerIndex += 1;
             nextPlayerIndex %= players.size();
