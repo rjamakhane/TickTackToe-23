@@ -2,8 +2,8 @@ package models;
 
 import exception.InvalidDimension;
 import exception.InvalidNumberOfPlayers;
-import stratergy.OrderOneWinningStratergy;
-import stratergy.WinningStratergy;
+import stratergy.WinningStratergy.OrderOneWinningStratergy;
+import stratergy.WinningStratergy.WinningStratergy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +136,7 @@ public class Game {
     public void makeNextMove(){
         Player playerToMove = players.get(nextPlayerIndex);
         System.out.println("It is " + playerToMove.getName() + "'s turn");
-        Move move = playerToMove.decideMove();
+        Move move = playerToMove.decideMove(board);
 
         int row = move.getCell().getRow();
         int col = move.getCell().getCol();

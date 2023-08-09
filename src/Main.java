@@ -13,7 +13,7 @@ public class Main {
         System.out.println("Welcome to TickTakToe");
         System.out.println("******************************");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the board dimenstion (n * n) board:");
+        System.out.println("Enter the board dimension (n * n) board:");
         int dimensions = scanner.nextInt();
 
         List<Player> players = new ArrayList<>();
