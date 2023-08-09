@@ -1,3 +1,4 @@
+import controllers.GameController;
 import models.*;
 
 import java.util.ArrayList;
@@ -41,15 +42,12 @@ public class Main {
             players.add(new Player(name,symbol.charAt(0), PlayerType.HUMAN));
         }
 
-        Game game = new Game.Builder().setDimensions(dimensions).setPlayers(players).build();
-        if(game == null){
-            System.out.println("Error");
-            return;
-        }
+        GameController gameController = new GameController(dimensions, players);
 
-        while (game.getGameStatus().equals(GameStatus.IN_PROGRESS)) {
-            System.out.println("This is the current Board: ");
-            game.getBoard().displayBoard();
+        if(gameController.getGame() != null){
+            while (gameController.getGameStatus().equals(GameStatus.IN_PROGRESS)) {
+                System.out.println("This is the current Board: ");
+                gameController.displayBoard();
 
 //            System.out.println("Do you want to undo ? y/n");
 //            String input = scanner.next();
@@ -57,11 +55,12 @@ public class Main {
 //            if (input.equals("y")) {
 ////                gameController.undo(game);
 //            } else {
-                game.makeNextMove();
+                gameController.executeNextMove();
 //            }
 
-            if(game.getGameStatus().equals(GameStatus.WON)){
-                System.out.println(game.getWinner().getName()+" has own the game");
+                if(gameController.getGameStatus().equals(GameStatus.WON)){
+                    System.out.println(gameController.getWinner()+" has own the game");
+                }
             }
         }
     }

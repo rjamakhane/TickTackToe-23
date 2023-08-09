@@ -76,6 +76,8 @@ public class Game {
         this.winner = winner;
     }
 
+    private Game(){};
+
     public static class Builder {
         int dimensions;
         private List<Player> players;
@@ -102,7 +104,7 @@ public class Game {
             if(this.players.size() < this.dimensions - 1){
                 throw new InvalidNumberOfPlayers("Number of Players should be n-1");
             } else if(this.dimensions < 3){
-                throw new InvalidDimension("Invalid dimesntion specified");
+                throw new InvalidDimension("Invalid dimensions specified! At-least 3*3 grid is required");
             }
         }
 
