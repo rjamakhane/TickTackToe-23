@@ -123,6 +123,7 @@ public class Game {
             game.setGameStatus(GameStatus.IN_PROGRESS);
             game.setNextPlayerIndex(0);
             game.setMoves(new ArrayList<>());
+            game.setBoard(new Board(dimensions));
             game.setWinningStratergy(new OrderOneWinningStratergy(dimensions));
 
             return game;

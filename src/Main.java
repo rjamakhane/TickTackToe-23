@@ -42,22 +42,26 @@ public class Main {
         }
 
         Game game = new Game.Builder().setDimensions(dimensions).setPlayers(players).build();
+        if(game == null){
+            System.out.println("Error");
+            return;
+        }
 
         while (game.getGameStatus().equals(GameStatus.IN_PROGRESS)) {
             System.out.println("This is the current Board: ");
             game.getBoard().displayBoard();
 
-            System.out.println("Do you want to undo ? y/n");
-            String input = scanner.next();
+//            System.out.println("Do you want to undo ? y/n");
+//            String input = scanner.next();
 
-            if (input.equals("y")) {
-//                gameController.undo(game);
-            } else {
+//            if (input.equals("y")) {
+////                gameController.undo(game);
+//            } else {
                 game.makeNextMove();
-            }
+//            }
 
             if(game.getGameStatus().equals(GameStatus.WON)){
-
+                System.out.println(game.getWinner().getName()+" has own the game");
             }
         }
     }

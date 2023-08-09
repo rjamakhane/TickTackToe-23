@@ -3,7 +3,7 @@ package models;
 public class Cell {
     private int row;
     private int col;
-    Player player;
+    private Player player;
     private CellState cellState;
 
     public int getRow() {
@@ -41,5 +41,6 @@ public class Cell {
     public Cell(int row, int col){
         this.row = row;
         this.col = col;
+        this.cellState = CellState.EMPTY;
     }
 }

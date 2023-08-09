@@ -32,7 +32,7 @@ public class OrderOneWinningStratergy implements WinningStratergy{
     public boolean checkWinner(Board board, Move move) {
         int row = move.getCell().getRow();
         int col = move.getCell().getCol();
-        Character symbol = move.getCell().getPlayer().getSymbol();
+        Character symbol = move.getPlayer().getSymbol();
         int dimension = board.getBoard().size();
 
         //update the hashmap values
